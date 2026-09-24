@@ -1,0 +1,29 @@
+$ redis-cli --scan
+alert_cooldown:FastPay
+gw_state:FastPay
+gw_state:QuickPay
+gw_state:SecurePay
+routing:cooldown
+routing:disabled_gateway
+routing:target_gateway
+
+$ redis-cli GET alert_cooldown:FastPay      # TTL 136s
+1
+
+$ redis-cli GET gw_state:FastPay      # TTL 299s
+{"window_end": "2026-09-24T12:03:55Z", "gateway": "FastPay", "sample_size": 4114, "error_rate": 0.78, "top_error": "504_TIMEOUT", "p95_latency_ms": 5777.3}
+
+$ redis-cli GET gw_state:QuickPay      # TTL 299s
+{"window_end": "2026-09-24T12:03:55Z", "gateway": "QuickPay", "sample_size": 943, "error_rate": 0.0212, "top_error": "504_TIMEOUT", "p95_latency_ms": 458.7}
+
+$ redis-cli GET gw_state:SecurePay      # TTL 299s
+{"window_end": "2026-09-24T12:03:55Z", "gateway": "SecurePay", "sample_size": 4377, "error_rate": 0.0078, "top_error": "504_TIMEOUT", "p95_latency_ms": 429.0}
+
+$ redis-cli GET routing:cooldown      # TTL 573s
+1
+
+$ redis-cli GET routing:disabled_gateway      # TTL 1773s
+FastPay
+
+$ redis-cli GET routing:target_gateway      # TTL 1773s
+SecurePay

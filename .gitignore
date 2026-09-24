@@ -1,0 +1,18 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Environment / credentials
+*.env
+.env*
+*credentials*.json
+*service-account*.json
+*-key.json
+*.pem
+*.key
+*.p12
+
+# OS
+.DS_Store

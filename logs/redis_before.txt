@@ -1,0 +1,13 @@
+$ redis-cli --scan
+gw_state:FastPay
+gw_state:QuickPay
+gw_state:SecurePay
+
+$ redis-cli GET gw_state:FastPay      # TTL 297s
+{"window_end": "2026-09-24T12:02:25Z", "gateway": "FastPay", "sample_size": 15, "error_rate": 0.0, "top_error": null, "p95_latency_ms": 389.6}
+
+$ redis-cli GET gw_state:QuickPay      # TTL 297s
+{"window_end": "2026-09-24T12:02:25Z", "gateway": "QuickPay", "sample_size": 6, "error_rate": 0.0, "top_error": null, "p95_latency_ms": 324.8}
+
+$ redis-cli GET gw_state:SecurePay      # TTL 297s
+{"window_end": "2026-09-24T12:02:25Z", "gateway": "SecurePay", "sample_size": 7, "error_rate": 0.0, "top_error": null, "p95_latency_ms": 319.4}
