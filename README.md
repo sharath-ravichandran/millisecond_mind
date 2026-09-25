@@ -58,6 +58,57 @@ Sample output lives in `incident_reports/` and `logs/` (`run1/`, `run2/`, and Re
 
 ---
 
+## The demo in screenshots
+
+### 1. History: the agent's idea of "normal"
+The BigQuery table is partitioned on `hour_ts`, and its column descriptions ground the agent's SQL.
+
+![BigQuery history table schema](screenshots/01_bigquery_history_table_schema.png)
+
+30 days of hourly stats per gateway:
+
+![BigQuery history table data](screenshots/02_bigquery_history_table_data.png)
+
+### 2. Outage and recovery
+Checkout failures turn red when the FastPay outage is injected, then return to green once the agent reroutes to SecurePay.
+
+![Publisher outage and recovery](screenshots/03_publisher_outage_and_recovery.png)
+
+### 3. The reflex fires
+Sliding-window summaries cross the 20% threshold, and the pipeline publishes an alert.
+
+![Pipeline breach and alert](screenshots/04_pipeline_breach_and_alert.png)
+
+Pub/Sub throughput on `payment-events` and the alert on `agent-triggers`:
+
+![Pub/Sub events backlog and throughput](screenshots/05_pubsub_events_backlog_and_throughput.png)
+
+![Pub/Sub agent trigger alert](screenshots/06_pubsub_agent_trigger_alert.png)
+
+### 4. The brain investigates
+The agent reads live state, describes the table, then dry-runs and executes a baseline query.
+
+![Agent investigation](screenshots/07_agent_investigation.png)
+
+The agent's baseline query job as it appears in BigQuery:
+
+![BigQuery agent baseline query job](screenshots/08_bigquery_agent_baseline_query_job.png)
+
+Gemini calls on Vertex AI:
+
+![Vertex AI Gemini calls](screenshots/09_vertex_ai_gemini_calls.png)
+
+### 5. Action and report
+The incident report, with live evidence, baseline SQL, and the action taken:
+
+![Agent incident report](screenshots/10_agent_incident_report.png)
+
+After the reroute, the Redis reflex store holds the routing override, the cooldowns, and their TTLs:
+
+![Redis reflex store after reroute](screenshots/11_redis_reflex_store_after_reroute.png)
+
+---
+
 ## Guardrails
 
 The safety rules are enforced in code, not only in the prompt.
