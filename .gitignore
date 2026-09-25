@@ -14,5 +14,23 @@ __pycache__/
 *.key
 *.p12
 
+# Editor / Office temp and lock files
+~$*
+.~lock.*#
+*~
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+
+# Python / tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
 # OS
 .DS_Store
+._*
+Thumbs.db
